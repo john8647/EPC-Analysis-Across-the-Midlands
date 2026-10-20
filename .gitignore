@@ -11,3 +11,4 @@ kaggle.json
 .venv/
 private_folder/
 *.pkl
+dataset/
