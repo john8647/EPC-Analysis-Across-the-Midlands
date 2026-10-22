@@ -12,14 +12,19 @@ For homeowners and renters, higher efficiency translates directly to lower month
 
 # Dataset
 
-The dataset is Kaggles EPC ratings England July 2023, the database is one of the richest data on individual residential properties. With 92 features and 21 million properties from England its also very large.  
-My chosen sample region is the Midlands covering Coventry and Birmingham postcode city area for demonstration purposes due to practicality with the current hardware resource constrains.
+The dataset is Kaggles EPC ratings England July 2023, the database is publically available and is one of the richest data on individual residential properties. Because the national EPC dataset is extremely large and complex, restricting the analysis to the Midlands represents a sound data‑governance choice. This controlled scope improves data accuracy, reduces noise, and ensures the resulting analytics and machine‑learning models remain reliable and responsibly managed.
+The Midlands covering Coventry and Birmingham postcode city area for demonstration purposes due to practicality with the current hardware resource constrains. Also my chosen property set is 'Houses' so not to get overly complex and have clear target recommendations which can be expanded and adapter later.  
 The aim of this project is to use advanced data analysis to demonstrate mining the data for possible actions. Using the feature available through Python library to communication the data and to dicuss the Ethical practice that also need to be considered.
 
 # Business Requirements
 
 Targeted Retrofits: Maximizing Government Grant Impact on Regional EPCs
 This dashboard helps policy makers answer a critical question: Where and how should we allocate retrofit funding for maximum impact? By evaluating building age, property usage, and regional density, the tool determines the single upgrade that generates the highest EPC score gain per pound spent. Users can adjust an interactive budget slider to model cost estimates and identify the ideal target areas for government-funded campaigns.
+
+# Planning
+
+Project Planning board over days 1-4 on interactive Kanban board for tracking my project progress and essuring goals and targets met.
+https://github.com/users/john8647/projects/8
 
 # Ethical consideration.
 
@@ -44,7 +49,8 @@ But carbon responsibility is not evenly distributed — it’s shaped by:
 Bias in Housing Stock Representation.
 Also consider that some regions have more EPC‑recorded properties, this may be due to the nature of renting in the area and how local policy recommendations are enforced.
 Also older homes may be over‑represented while rural areas may be under‑represented
-In some areas rental properties may appear more frequently
+In some areas rental properties may appear more frequently.
+
 This affects:
 
 - regression accuracy
@@ -66,6 +72,28 @@ Misinterpretation of EPC‑related property data may distort housing market perc
 So we have to consider some of these as risks relating to socioeconomic profiling, unfair commercial targeting, and misinterpretation of carbon responsibility.
 
 ## Hypothesis and how to validate?
+
+**Hypothesis 1 ($H_1$)**: 'Houses': that already have insulated walls but weaker secondary features (e.g. older windows, low loft insulation or poorly efficent heating) represent a cost‑effective “easy win” for improving EPC ratings compared to homes needing expensive wall insulation upgrades.
+
+How to prove this? First identify the group with a significant single feature
+Filter properties that match: e.g. Semi‑modern age band:  
+Label: properties built roughly between 1965–2000
+Insulated walls present: Label: cavity wall insulation or internal/external wall insulation already installed. With a single or older double glazing and or with
+low loft insulation thickness and or with older or poor heating system or controls.
+Will give us : “semi‑modern, structurally decent, but with weaker secondary features.”
+Compare potential EPC improvement vs cost Use EPC recommendation fields (if available) or typical upgrade assumptions:
+For your target group: model EPC rating before upgrades simulate upgrades: better windows, improved loft insulation and estimate EPC rating after upgrades.
+Use approximate cost (using standard cost bands from EPC guidance or literature)
+For older, poorly insulated homes: simulate wall cladding / major insulation upgrades
+estimate EPC rating improvement and approximate cost.
+
+Then compare:
+EPC gain per £ spent by the Number of homes in each group.
+Total potential carbon reduction per £
+If the hypothesis is right, the semi‑modern group will show higher EPC improvement per unit cost.
+We can use clustering to support the story. We can complare (e.g. k‑means) on:
+age band / wall insulation status / window type / loft insulation and
+the current EPC rating.
 
 ## Section 1 - Exploring features that relate to energy.
 
