@@ -105,6 +105,38 @@ Once an EPC assessment is complete, assessors highlight key upgrades to boost th
 
 ## Section 3 - Application
 
+## Published Dashboard
+
+This map shows where homes in the West Midlands have the best potential for low‑cost energy‑efficiency improvements. Each circle represents a group of homes in a small geographic area. The colour of the circle shows how attractive the improvement opportunity is:
+Green = strong “easy win”
+(big improvement in EPC rating for relatively low cost)
+Yellow = moderate opportunity
+Red = weaker opportunity
+(smaller improvement or higher cost)
+The size of each circle shows how many homes in that area meet the criteria for improvement.
+Large circles mean many homes could benefit; small circles mean only a few.
+In short:
+Colour = quality of opportunity  
+Size = number of homes affected
+
+The map showing the results can be viewer here.
+https://public.tableau.com/views/EasyWinRetrofitOpportunityMapfortheWestMidlands/Sheet1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+
+# Interpretation (what you should notice)
+
+Green clusters highlight neighbourhoods where retrofit upgrades are both affordable and effective, making them ideal targets for local authorities, landlords, or energy‑efficiency programmes.
+
+Yellow and red areas still have improvement potential, but the upgrades may be more expensive or deliver smaller EPC gains.
+
+Large circles indicate high‑impact zones where many homes share similar improvement needs — useful for planning bulk interventions or community‑scale retrofit schemes.
+
 Government energy grants are targeted, meaning deployment strategy is just as critical as the upgrade itself. Our tool not only identifies the single most impactful feature to upgrade (windows, walls, or roof insulation), but also maps where to apply it. By segmenting housing and demographic datasets, we enable grant administrators to pinpoint target groups and maximize campaign outcomes.
+
+In Birmingham Lea Hall area shows up as green because the homes there have a high Easy‑Win Index — meaning they can gain a good number of SAP points for relatively low retrofit cost. But the green circle is small, which tells us the opportunity is limited to a small number of homes.
+Colour = quality of opportunity.
+Lea Hall = high‑quality, low‑cost upgrades.
+Size = scale of opportunity therefore Lea Hall has a small number of homes needing attention.
+
+# ![map](resources/lea_hall.png)
 
 ## Background## Code not fixed.
