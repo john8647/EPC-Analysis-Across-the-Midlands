@@ -11,4 +11,4 @@ kaggle.json
 .venv/
 private_folder/
 *.pkl
-dataset/
+unimproved_subset.csv
