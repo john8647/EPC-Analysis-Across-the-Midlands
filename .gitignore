@@ -12,3 +12,4 @@ kaggle.json
 private_folder/
 *.pkl
 unimproved_subset.csv
+epc_boost_model.pkl

@@ -10,6 +10,10 @@ The UK government is legally bound to achieve Net Zero greenhouse gas emissions 
 
 For homeowners and renters, higher efficiency translates directly to lower monthly utility bills. Better insulation, efficient heat sources, and smart controls reduce wasted energy, protecting household budgets from price volatility in global fuel markets
 
+## Aims
+
+In this data analysis project the aim is to identify and visualise the low‑cost, high‑impact improvements that could help the government make visible progress on energy efficiency and carbon reduction through EPC‑based interventions. By focusing on ‘easy‑win’ upgrades—such as improving windows or loft insulation in semi‑modern homes—the government can demonstrate responsible action, achieve measurable gains, and defer more expensive or uneconomical decisions, such as major structural upgrades or demolition, to a later stage. A ‘lead‑by‑example’ approach allows the government to offer limited incentives and grants that demonstrate visible action without placing heavy demands on the public purse. Once these low‑cost improvements are showcased, wealthier private housing groups can be encouraged to follow suit and upgrade the remaining stock.
+
 # Dataset
 
 The dataset is Kaggles EPC ratings England July 2023, the database is publically available and is one of the richest data on individual residential properties. Because the national EPC dataset is extremely large and complex, restricting the analysis to the Midlands represents a sound data‑governance choice. This controlled scope improves data accuracy, reduces noise, and ensures the resulting analytics and machine‑learning models remain reliable and responsibly managed.
@@ -138,5 +142,7 @@ Lea Hall = high‑quality, low‑cost upgrades.
 Size = scale of opportunity therefore Lea Hall has a small number of homes needing attention.
 
 # ![map](resources/lea_hall.png)
+
+Each circle represents the centre point of a postcode area. The size of the circle shows how many homes fall into the category most in need of EPC improvement, while the colour—from red (high) to green (low) indicates the average estimated cost of retrofit upgrades in that area.
 
 ## Background## Code not fixed.
