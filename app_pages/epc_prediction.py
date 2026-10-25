@@ -1,9 +1,95 @@
 import streamlit as st
 import pandas as pd
+import joblib
+
+
+def efficiency_to_rating(score):
+    if score >= 92:
+        return "A"
+    elif score >= 81:
+        return "B"
+    elif score >= 69:
+        return "C"
+    elif score >= 55:
+        return "D"
+    elif score >= 39:
+        return "E"
+    elif score >= 21:
+        return "F"
+    else:
+        return "G"
+
+
+def map_wall_score(text):
+    if not isinstance(text, str):
+        return 1
+    text = text.lower()
+    if "cavity" in text:
+        return 3
+    if "timber" in text:
+        return 2
+    if any(word in text for word in ["sandstone", "stone", "solid", "granite", "rubble"]):
+        return 1
+    return 1  # default to solid wall if unknown
+
+
+def roof_ins_score(text):
+    if not isinstance(text, str):
+        return 0
+    t = text.lower()
+    if "flat" in t:
+        return 1
+    if "pitched" in t:
+        return 3
+    if "roof room" in t:
+        return 3
+    if "thatched" in t:
+        return 3
+    return 0
+
+
+def window_score(text):
+    # Handle missing or non-string values
+    if not isinstance(text, str):
+        return 0
+
+    t = text.lower()
+
+    # --- SINGLE GLAZING (score = 3) ---
+    if "single" in t:
+        return 3
+
+    # --- DOUBLE GLAZING (score = 2) ---
+    if "double" in t:
+        return 2
+
+    # --- TRIPLE GLAZING (score = 0) ---
+    if "triple" in t:
+        return 0
+
+    # --- UNKNOWN / OTHER (fallback) ---
+    return 1
+
+
+def calculate_ruc_cost(walls_description, roof_description, windows_description, potential_gain):
+    wall = map_wall_score(walls_description)
+    roof = roof_ins_score(roof_description)
+    window = window_score(windows_description)
+
+    total_score = wall + roof + window
+
+    # stronger penalty for expensive upgrades
+    modifier = 4 / (1 + total_score)
+
+    # realistic UK cost per SAP point
+    base_cost_per_point = 150
+
+    ruc = potential_gain * base_cost_per_point * modifier
+    return ruc
 
 
 def dashboard_body():
-    st.header("EPC Estimation & Reconmendation")
+    st.header("EPC Estimation & Recommendations")
 
     st.write("Provides an estimation of EPC score and suggested improvements.")
 
@@ -19,6 +105,13 @@ def dashboard_body():
         "Build Form",
         ["Detached", "Enclosed End-Terrace", "Enclosed Mid-Terrace",
             "End-Terrace", "Mid-Terrace", "Semi-Detached"]
+    )
+
+    # GLAZE TYPE
+    glaze_type = st.selectbox(
+        "Window Glaze type",
+        ["double glazing installed before 2002", "double glazing, unknown install date", "double, known data", "NO DATA!", "not defined",
+            "secondary glazing", "single glazing"]
     )
 
     # WINDOWS_DESCRIPTION
@@ -42,7 +135,7 @@ def dashboard_body():
     )
 
     # ROOF_DESCRIPTION
-    Roof_description = st.selectbox(
+    roof_description = st.selectbox(
         "Roof description",
         ["(another dwelling above)", "Ar oleddf", " 12 mm o inswleiddio yn y llofft", "Ar oleddf", " 50 mm o inswleiddio yn y llofft", "Ar oleddf", " dim inswleiddio (rhagdybiaeth)", "Average thermal transmittance 0.11 W/m-Â¦K", "Average thermal transmittance 0.13 W/m+Ã©-Â¦K", "Average thermal transmittance 0.15 W/m-Â¦K", "Average thermal transmittance 0.16 W/m-Â¦K", "Average thermal transmittance 0.17 W/m-Â¦K", "Average thermal transmittance 0.18 W/m?K", "Average thermal transmittance 0.18 W/m-Â¦K", "Average thermal transmittance 0.19 W/m?K", "Average thermal transmittance 0.2 W/m-Â¦K", "Average thermal transmittance 0.21 W/m-Â¦K", "Average thermal transmittance 0.22 W/m-Â¦K", "Average thermal transmittance 0.25 W/m?K", "Average thermal transmittance 0.27 W/m+Ã©-Â¦K", "Average thermal transmittance 0.29 W/m?K", "Average thermal transmittance 0.32 W/m-Â¦K", "Average thermal transmittance 0.37 W/m-Â¦K", "Average thermal transmittance 0.44 W/m-Â¦K", "Average thermal transmittance 0.45 W/m-Â¦K", "Average thermal transmittance 0.70 W/m-Â¦K", "Average thermal transmittance 0.93 W/m?K", "Average thermal transmittance 1.34 W/m-Â¦K", "Average thermal transmittance 1.35 W/m-Â¦K", "Average thermal transmittance 1.36 W/m-Â¦K", "Average thermal transmittance 1.47 W/m-Â¦K", "Flat", "", "Flat", " insulated", "Flat", " insulated (assumed)", "Flat", " limited insulation", "Flat", " limited insulation (assumed)", "Flat", " no insulation", "Flat", " no insulation (assumed)", "Pitched", "", "Pitched", "  loft insulation",
          "Pitched", " *** INVALID INPUT Code : 57 *** loft insulation", "Pitched", " 0 mm loft insulation", "Pitched", " 0mm loft insulation", "Pitched", " 100 mm loft insulation", "Pitched", " 100mm loft insulation", "Pitched", " 12 mm loft insulation", "Pitched", " 12mm loft insulation", "Pitched", " 150 mm loft insulation", "Pitched", " 150mm loft insulation", "Pitched", " 200 mm loft insulation", "Pitched", " 200mm loft insulation", "Pitched", " 25 mm loft insulation", "Pitched", " 25mm loft insulation", "Pitched", " 270 mm loft insulation", "Pitched", " 50 mm loft insulation", "Pitched", " 50mm loft insulation", "Pitched", " 75 mm loft insulation", "Pitched", " 75mm loft insulation", "Pitched", " insulated", "Pitched", " insulated (assumed)", "Pitched", " insulated at rafters", "Pitched", " limited insulation", "Pitched", " limited insulation (assumed)", "Pitched", " loft insulation", "Pitched", " mm loft insulation", "Pitched", " no insulation", "Pitched", " no insulation (assumed)", "Pitched", " no insulation(assumed)", "Pitched", " Unknown loft insulation", "Roof room(s)", " ceiling insulated", "Roof room(s)", " insulated", "Roof room(s)", " insulated (assumed)", "Roof room(s)", " limited insulation", "Roof room(s)", " limited insulation (assumed)", "Roof room(s)", " no insulation", "Roof room(s)", " no insulation (assumed)", "Roof room(s)", " no insulation(assumed)", "Roof room(s)", " thatched", "Roof room(s)", " thatched with additional insulation", "Thatched", "Thatched", " with additional insulation"]
@@ -80,7 +173,7 @@ def dashboard_body():
         "Currency energy efficiency",
         min_value=1,
         max_value=54,
-        value=75
+        value=50
     )
 
     # ENERGY_CONSUMPTION_CURRENT
@@ -122,3 +215,46 @@ def dashboard_body():
         max_value=2500,
         value=850
     )
+
+    # 1. Load the trained model
+    model = joblib.load("epc_boost_model.pkl")
+
+    # 2. Create an example input row (must match your feature names)
+    # --- Prediction Button ---
+    if st.button("Predict EPC potential and show improvement cost"):
+        # Build model input row
+        row = pd.DataFrame([{
+            'CURRENT_ENERGY_RATING': current_energy_rating,
+            'BUILT_FORM': build_form,
+            'GLAZED_TYPE': glaze_type,
+            'WINDOWS_DESCRIPTION': windows_description,
+            'WALLS_DESCRIPTION': walls_description,
+            'WALLS_ENERGY_EFF': walls_energy_eff,
+            'ROOF_DESCRIPTION': roof_description,
+            'ROOF_ENERGY_EFF': roof_energy_eff,
+            'MAINHEAT_DESCRIPTION': mainheat_description,
+            'MAINHEAT_ENERGY_EFF': mainheat_energy_eff,
+            'CONSTRUCTION_AGE_GROUP': construction_age_group,
+            'CURRENT_ENERGY_EFFICIENCY': current_energy_efficiency,
+            'ENERGY_CONSUMPTION_CURRENT': energy_consumption_current,
+            'CO2_EMISSIONS_CURRENT': co2_emissions_current,
+            'HEATING_COST_CURRENT': heating_cost_current,
+            'HOT_WATER_COST_CURRENT': hot_water_cost_current,
+            'TOTAL_FLOOR_AREA': total_floor_area
+        }])
+
+        # 3. Predict potential EPC efficiency score
+        prediction = model.predict(row)[0]
+        # 4. Extract result
+        potential_efficiency = float(prediction)
+        rating = efficiency_to_rating(potential_efficiency)
+        potential_gain = potential_efficiency - current_energy_efficiency
+
+        ruc = calculate_ruc_cost(
+            walls_description, roof_description, windows_description, potential_gain)
+        # --- Output---
+        st.success(
+            f"**Predicted potential EPC score will be:** {potential_efficiency:.2f}%\n\n"
+            f"**Potential Rating:** {rating}\n\n"
+            f"**Estimated retrofit cost for maximum impact:**£ {ruc:.2f}"
+        )
