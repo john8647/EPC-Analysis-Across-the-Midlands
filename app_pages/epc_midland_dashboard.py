@@ -7,6 +7,15 @@ import seaborn as sns
 
 def dashboard_body_visuals(df_unimproved: pd.DataFrame):
     st.header("Midlands EPC Improvements Dashboard")
+    st.write("Homes that are physically clustered together often share similar construction features, "
+             " and when these are filtered by age group clear patterns emerge in how cost‑effective it is to reach"
+             " their potential EPC improvement. A common strategy is to prioritise the ‘easy‑fix’ upgrades first,"
+             " then assess whether further energy savings and CO₂ reductions can be achieved. Some older buildings "
+             "are inherently inefficient and remain expensive to heat, whereas newer homes —although more costly to "
+             "purchase— tend to be far cheaper to run. In the rental sector, minimum EPC standards must be met for "
+             "HMO licensing and similar certifications, making energy performance a critical factor for landlords. "
+             ""
+             "  Below: The potential EPC efficiency score can be visualised against age.")
     age_band = st.selectbox(
         "Select Construction Age Band",
         [
@@ -107,10 +116,13 @@ def dashboard_body_visuals(df_unimproved: pd.DataFrame):
         fontweight="bold",
         pad=20,
     )
-    ax1.set_xlabel("Post Town (POSTTOWN)", fontsize=12, fontweight="bold", labelpad=10)
-    ax1.set_ylabel("Average Potential Gain (SAP Points)", fontsize=12, fontweight="bold")
+    ax1.set_xlabel("Post Town (POSTTOWN)", fontsize=12,
+                   fontweight="bold", labelpad=10)
+    ax1.set_ylabel("Average Potential Gain (SAP Points)",
+                   fontsize=12, fontweight="bold")
     ax1.set_xticks(list(x_coords))
-    ax1.set_xticklabels(town_summary_filtered["POSTTOWN"], rotation=45, ha="right")
+    ax1.set_xticklabels(
+        town_summary_filtered["POSTTOWN"], rotation=45, ha="right")
     ax1.legend(
         title="Avg Retrofit Cost Score",
         bbox_to_anchor=(1.12, 1.0),

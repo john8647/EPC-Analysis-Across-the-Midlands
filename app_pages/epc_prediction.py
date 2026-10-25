@@ -91,7 +91,14 @@ def calculate_ruc_cost(walls_description, roof_description, windows_description,
 def dashboard_body():
     st.header("EPC Estimation & Recommendations")
 
-    st.write("Provides an estimation of EPC score and suggested improvements.")
+    st.write("This UI demonstrates how the potential EPC efficiency score can be estimated using a machine‑learning model."
+             "  The model has learned from thousands of real EPC examples, recognising how different property features—such as glazing, walls, heating systems,"
+             "  and construction age—relate to the improvement scores suggested by surveyors."
+             "  By combining these learned patterns, the system can now estimate an approximate potential efficiency score for any chosen set of features."
+             "  The cost values shown are only illustrative, as real‑world retrofit pricing depends on many additional factors not captured in this dataset."
+             "  This is how machine learning works and we hope the science of training computers for data processing interests you."
+             ""
+             "  Pick some features and see what happens....")
 
     # --- Dropdowns with text ---
     # CURRENT_ENERGY_RATING
