@@ -219,6 +219,10 @@ def dashboard_body():
     # 1. Load the trained model
     model = joblib.load("epc_boost_model.pkl")
 
+    # Force single-thread mode for Heroku
+    if hasattr(model, "n_jobs"):
+        model.n_jobs = 1
+
     # 2. Create an example input row (must match your feature names)
     # --- Prediction Button ---
     if st.button("Predict EPC potential and show improvement cost"):
