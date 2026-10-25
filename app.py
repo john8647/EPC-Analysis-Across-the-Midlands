@@ -14,11 +14,26 @@ from app_pages.epc_prediction import dashboard_body
 def load_unimproved_data():
     file_path = "unimproved_subset.csv"
 
-    return kagglehub.load_dataset(
+    # KaggleHub returns a DataFrame when using the PANDAS adapter
+    df = kagglehub.dataset_load(
         KaggleDatasetAdapter.PANDAS,
         "johntandy/epc-midlands-july-2023",
         file_path,
     )
+
+    # Select only the columns you need
+    use_columns = [
+        "POSTTOWN",
+        "POTENTIAL_GAIN",
+        "CONSTRUCTION_AGE_GROUP",
+        "column00",
+        "easy_win_index",
+        "retrofit_cost_score",
+    ]
+
+    df = df[use_columns]
+
+    return df
 
 
 df_unimproved = load_unimproved_data()
