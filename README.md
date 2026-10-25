@@ -12,25 +12,25 @@ For homeowners and renters, higher efficiency translates directly to lower month
 
 ## Aims
 
-In this data analysis project the aim is to identify and visualise the low‑cost, high‑impact improvements that could help the government make visible progress on energy efficiency and carbon reduction through EPC‑based interventions. By focusing on ‘easy‑win’ upgrades—such as improving windows or loft insulation in semi‑modern homes—the government can demonstrate responsible action, achieve measurable gains, and defer more expensive or uneconomical decisions, such as major structural upgrades or demolition, to a later stage. A ‘lead‑by‑example’ approach allows the government to offer limited incentives and grants that demonstrate visible action without placing heavy demands on the public purse. Once these low‑cost improvements are showcased, wealthier private housing groups can be encouraged to follow suit and upgrade the remaining stock.
+In this data analysis project the aim is to identify and visualise the low‑cost, high‑impact improvements that could help the government make visible progress on energy efficiency and carbon reduction through EPC‑based interventions. By focusing the idea that we might identify the ‘easy‑win’ upgrades. Such as improving windows or loft insulation in semi‑modern homes—the government can demonstrate responsible action, achieve measurable gains, and defer more expensive or uneconomical decisions, such as major structural upgrades or demolition, to a later stage. A ‘lead‑by‑example’ approach allows the government to offer limited incentives and grants that demonstrate visible action without placing heavy demands on the public purse. Once these low‑cost improvements are showcased, wealthier private housing groups can be encouraged to follow suit and upgrade the remaining stock.
 
-# Dataset
+## Dataset
 
 The dataset is Kaggles EPC ratings England July 2023, the database is publically available and is one of the richest data on individual residential properties. Because the national EPC dataset is extremely large and complex, restricting the analysis to the Midlands represents a sound data‑governance choice. This controlled scope improves data accuracy, reduces noise, and ensures the resulting analytics and machine‑learning models remain reliable and responsibly managed.
-The Midlands covering Coventry and Birmingham postcode city area for demonstration purposes due to practicality with the current hardware resource constrains. Also my chosen property set is 'Houses' so not to get overly complex and have clear target recommendations which can be expanded and adapter later.  
+The Midlands covering Coventry and Birmingham postcode city area for demonstration purposes due to practicality with the current hardware resource constrains. Also my chosen property set is 'Houses' so not to get overly complex and have clear target recommendations which can be expanded and adapter later. The 'FilterList_CV and B postcodes' shows stages of filtering the large EPC Kaggle dataset down to a usable size.
 The aim of this project is to use advanced data analysis to demonstrate mining the data for possible actions. Using the feature available through Python library to communication the data and to dicuss the Ethical practice that also need to be considered.
 
-# Business Requirements
+## Business Requirements
 
 Targeted Retrofits: Maximizing Government Grant Impact on Regional EPCs
 This dashboard helps policy makers answer a critical question: Where and how should we allocate retrofit funding for maximum impact? By evaluating building age, property usage, and regional density, the tool determines the single upgrade that generates the highest EPC score gain per pound spent. Users can adjust an interactive budget slider to model cost estimates and identify the ideal target areas for government-funded campaigns for houses with very low EPC ratings.
 
-# Planning
+## Planning
 
 Project Planning board over days 1-4 on interactive Kanban board for tracking my project progress and essuring goals and targets met.
 https://github.com/users/john8647/projects/8
 
-# Ethical consideration.
+## Ethical consideration.
 
 So what are the consideration, knowing that in this public dataset there is no personal data, so no GDPR or sensitive data is stored. Property information is private. But The Country has governance over it for pratical and political reasons. So we have to consider property‑level information, which creates indirect ethical concerns around how the data could be interpreted, repurposed, or used in ways that affect people or communities. The residents could be subject to unfair commercial targeting as EPC‑related features (age, insulation, heating type, efficiency) can be used to: identify neighbourhoods with older, colder homes and target those areas with aggressive sales campaigns.
 Property upgrades can be expensive and if there is the potential to push expensive upgrades or exploit households with limited income it could lead to hardship.
@@ -75,6 +75,10 @@ Misinterpretation of EPC‑related property data may distort housing market perc
 
 So we have to consider some of these as risks relating to socioeconomic profiling, unfair commercial targeting, and misinterpretation of carbon responsibility.
 
+# ![house](resources/house.png)
+
+(What you might think about if you are told a house is failing to reach a good EPC rating standard.)
+
 ## Hypothesis and how to validate?
 
 **Hypothesis 1 ($H_1$)**: 'Houses': that already have insulated walls but weaker secondary features (e.g. older windows, low loft insulation or poorly efficent heating) represent a cost‑effective “easy win” for improving EPC ratings compared to homes needing expensive wall insulation upgrades.
@@ -101,7 +105,7 @@ the current EPC rating.
 
 ## Section 1 - Exploring features that relate to energy.
 
-We Identified from the data where results of "Poor" or "Very_Poor" these when related to either the walls, roof, windows or mainheating would result in a low score. Almost half is caused by poor wall insulation. Suggesting energy loss through the wall is the highest factor to a low EPC rating.
+We Identified from the data where results of "Poor" or "Very_Poor" these when related to either the walls, roof, windows or mainheating would result in a low score. Almost half is caused by poor wall insulation. Suggesting energy loss through the wall is the highest factor to a low EPC rating. The Data exploration in the 'Data exploration and analysis' notebook shows the stage of exploring the features that relate to energy and the build of the house.
 
 ## Section 2 - Potential SAP Point Gain
 
@@ -109,7 +113,7 @@ Once an EPC assessment is complete, assessors highlight key upgrades to boost th
 
 ## Section 3 - Application
 
-The application brings together the skills I’ve learned throughout the course at the Codeing Institute to create a practical dashboard and interactive demonstration that showcases my findings in a hands‑on, accessible way and for others to see how data can be displayed both as a story and as an app.
+The application brings together the skills I’ve learned throughout the course at the Codeing Institute to create a practical dashboard and interactive demonstration that showcases my findings in a hands‑on, accessible way and for others to see how data can be displayed both as a story and as an app. The 'TrainEPC model' notebook shows how I built up the machine learning model on the EPC dataset.
 
 ## Published Dashboard
 
@@ -128,7 +132,7 @@ Size = number of homes affected
 The map showing the results can be viewer here.
 https://public.tableau.com/views/EasyWinRetrofitOpportunityMapfortheWestMidlands/Sheet1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
-# Interpretation (what you should notice and what you can do about it)
+## Interpretation (what you should notice and what you can do about it)
 
 Green clusters highlight neighbourhoods where retrofit upgrades are both affordable and effective, making them ideal targets for local authorities, landlords, or energy‑efficiency programmes.
 
@@ -176,8 +180,15 @@ The Vertical Axis (Y-axis - Average Potential Gain): Represents the average incr
 The Horizontal Axis (X-axis): Lists the different construction eras or years (CONSTRUCTION_AGE_BAND) recorded for the houses.
 The Core Trend (Older vs. Newer Homes):
 Oldest Homes (Left side): Homes built before 1900, or in the early 20th century (1900-1949), show the highest potential gain (over 22 SAP points). These homes typically started with poor insulation (such as solid stone/brick walls, single glazing) and outdated heating systems, making them prime candidates for significant upgrades.
+
 Newer Homes (Right side): As we move to the right, the potential gain progressively drops. Homes built after 2010 generally show potential gains of around 7 to 11 SAP points. Since modern building codes require double glazing, cavity insulation, and efficient heating upon construction, these newer homes are already highly efficient and have less room for drastic improvement.
 The Color Gradient (Palette): The colors shift from dark purple (highest potential gain) to bright yellow/green (lowest potential gain) to draw your eye immediately to the age bands where retrofitting yields the most significant impact.
+
+## Spotting the 'Easy wins' in large datasets.
+
+An upgrade to the EPC Increate loft insulation to 270mm or more is all it will take to push this rating of D to a rating of C. Defined by our project as an Easy Win.
+
+# ![chart](resources/easywins.png)
 
 ## Practical challenges in executing the project.
 
@@ -190,3 +201,26 @@ To work around this, I uploaded my refined Midlands dataset to Kaggle and create
 However, Heroku still could not load the full 123MB CSV at runtime. To solve this, I changed my application code so that it only downloads and loads the specific fields required for the dashboard rather than the entire dataset. By restricting the columns to only those used in the visualisations and calculations, I reduced memory usage enough for the application to run within Heroku’s limits.
 
 This combination of dataset refinement, selective column loading, and cloud‑based preprocessing allowed me to overcome the memory limitations of both Heroku and GitHub while still delivering the required analysis.
+
+## Reference and citations
+
+I have use the LMS for Machine Learning structure of code in 'Training notebook' and resused much of the ETL cleaning performed in unit 1 & 2. I have used Google Gemini mostly to be focused on refining the EPC Streamlit application, and resolving Git repository issues, and optimizing the learning model. Also used Co Pilot to reword complicated text explainations to improve quality.
+
+## Thanks to
+
+Maria and Seun for encourging support and Phil for his enthusiasm to take on large complex dataset.
+
+## Improvements
+
+EPC rating calculator could evolve into a more powerful research and policy tool.
+Include more property attributes — e.g., wall type, roof insulation thickness, heating system age, glazing area, and renewable installations.
+
+Integrate official EPC datasets from multiple years to track improvement trends over time.
+
+Add geographic context — link EPC data to local deprivation indices, built up areas, flood risk, or air‑quality zones for richer analysis.
+
+Incorporate weather and climate data — regional temperature averages or heating‑degree days to refine energy‑efficiency predictions.
+
+Add regional averages — show how a home’s EPC rating compares to local and national averages.
+
+Mobile‑friendly version — let homeowners quickly check potential improvements from their phone.
